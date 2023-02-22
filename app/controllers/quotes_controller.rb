@@ -2,7 +2,7 @@ class QuotesController < ApplicationController
   before_action :set_quote, only: [:show, :edit, :update, :destroy]
   # 個別のQuoteのリストを表示
   def index
-    @quotes = Quote.all
+    @quotes = Quote.ordered
   end
 
   # 個別のQuoteを表示
@@ -16,15 +16,13 @@ class QuotesController < ApplicationController
   # quoteを追加
   def create
     @quote = Quote.new(quote_params)
+
     if @quote.save
-      redirect_to quotes_path, notice: "Quote was successfully created."
+      respond_to do |format|
+        format.html { redirect_to quotes_path, notice: "Quote was successfully created." }
+        format.turbo_stream
+      end
     else
-      # note: TurboDriveを採用した
-      # 　Rails7での大きな変更
-      #   formがvalidateにかかるなどのエラーが起きた場合に
-      #
-      # render :new
-      # Add `status: :unprocessable_entity` here
       render :new, status: :unprocessable_entity
     end
   end
