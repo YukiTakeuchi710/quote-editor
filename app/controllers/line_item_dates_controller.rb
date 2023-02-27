@@ -1,4 +1,5 @@
 class LineItemDatesController < ApplicationController
+
   before_action :set_quote
   before_action :set_line_item_date, only: [:edit, :update, :destroy]
 

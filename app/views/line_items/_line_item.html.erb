@@ -1,4 +1,5 @@
-<div class="line-item">
+<%= turbo_frame_tag line_item do %>
+  <div class="line-item">
   <div class="line-item__name">
     <%= line_item.name %>
     <div class="line-item__description">
@@ -26,3 +27,4 @@
                 class: "btn btn--light" %>
   </div>
 </div>
+<% end %>
